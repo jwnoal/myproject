@@ -1,32 +1,32 @@
 <template>
   <div id="app">
     <noal-head></noal-head>
-    
+    <noal-body></noal-body>
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
 import NoalHead from './components/NoalHead'
+import NoalBody from './components/NoalBody'
 
 export default {
   name: 'app',
   components: {
-    Hello,
-    NoalHead
+    NoalHead,
+    NoalBody
   }
 }
 </script>
 
 <style>
 	*{padding: 0;margin: 0;}
-	html,body{width: 100%;}
+	html,body{width: 100%;height: 100%;}
 	body{font-family: "微软雅黑";font-size: 14px;	}
   img {border: 0 none;width: auto\9;height: auto;max-width: 100%;vertical-align: middle; margin-top: -2px; -ms-interpolation-mode: bicubic;}
 	ul{list-style: none;}
   a{text-decoration: none;cursor: pointer;}
   button{background: none;border: none;}
-  button,select {outline: none;}
+  input,button,select {outline: none;}
 	input {padding-left: 5px;vertical-align: middle;}
 	input[type="checkbox"],
 	input[type="radio"] {box-sizing: border-box;padding: 0;*height: 13px;*width: 13px;}
@@ -39,4 +39,5 @@ export default {
 	*:after {-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing:border-box;}
 	.left {float: left;}
 	.right {float: right;}
+	#app{height: 100%;}
 </style>
