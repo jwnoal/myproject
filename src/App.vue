@@ -1,0 +1,42 @@
+<template>
+  <div id="app">
+    <noal-head></noal-head>
+    
+  </div>
+</template>
+
+<script>
+import Hello from './components/Hello'
+import NoalHead from './components/NoalHead'
+
+export default {
+  name: 'app',
+  components: {
+    Hello,
+    NoalHead
+  }
+}
+</script>
+
+<style>
+	*{padding: 0;margin: 0;}
+	html,body{width: 100%;}
+	body{font-family: "微软雅黑";font-size: 14px;	}
+  img {border: 0 none;width: auto\9;height: auto;max-width: 100%;vertical-align: middle; margin-top: -2px; -ms-interpolation-mode: bicubic;}
+	ul{list-style: none;}
+  a{text-decoration: none;cursor: pointer;}
+  button{background: none;border: none;}
+  button,select {outline: none;}
+	input {padding-left: 5px;vertical-align: middle;}
+	input[type="checkbox"],
+	input[type="radio"] {box-sizing: border-box;padding: 0;*height: 13px;*width: 13px;}
+	em,
+	i {font-style: normal;}
+	.clearfloat {zoom: 1;}
+	.clearfloat:after {display: block;clear: both;content: "";visibility: hidden;height: 0;}
+	*,
+	*:before,
+	*:after {-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing:border-box;}
+	.left {float: left;}
+	.right {float: right;}
+</style>
