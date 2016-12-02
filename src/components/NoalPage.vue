@@ -1,4 +1,6 @@
 <template>
+<div class="hb100">
+<!-----------------------------head---------------------------->
 	<div class="NoalHead clearfloat">
 		<div class="logo">
 			<img src="../assets/logo.png" />
@@ -39,12 +41,24 @@
 			</ul>
 		</div>
 	</div>
-    
+<!-----------------------------body---------------------------->
+	 <div id='NoalBody' class="NoalBody clearfloat">
+	 	<div class="body-left">
+	 		
+	 	</div>
+	 	<div id="bodyright" class="body-right">
+	 		
+	 	</div>
+	 </div>
+<!-----------------------------foot---------------------------->
+	 
+</div>
 </template>
 
 <script>
+
 export default {
-  name: 'NoalHead',
+  name: 'NoalPage',
   data () {
     return {
     	themeshow:false,
@@ -75,25 +89,3 @@ export default {
 
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.NoalHead{width: 100%;height: 50px;background: url(../assets/headbg.jpg) no-repeat;position: relative;}
-.logo{width: 200px;height: 100%;line-height: 50px; position: absolute;}
-.search{width: 190px;height: 30px;line-height: 30px;background: #f0f8ff;border-radius: 4px;display: inline-block;margin-right: 200px;vertical-align: middle;}
-.search img{width: 18px;margin-left: 8px;}
-.search input{border: 0;background: none;margin-top: -3px;}
-.list{display: inline-block; color: #fff;height: 100%;line-height: 50px;}
-.list li{display: inline-block;margin:0 5px;}
-.list .liwidth{width: 50px;margin: 0;text-align: center;}
-.xiaoxi{width: 16px;}
-.yifu{width: 18px;}
-.sc{width: 24px;}
-.bgfff{background: #fff;}
-.theme{width: 95px;text-align: center;position: absolute;top: 50px;right:18px ;background: #f0f8ff;border-radius: 4px;cursor: pointer;}
-.theme .hd{line-height: 28px;border-bottom: 1px solid #ddd;}
-.theme ul li:hover{background: darkturquoise;}
-.scdiv{width: 140px;text-align: left;position: absolute;top: 50px;right:0px ;background: #fff;cursor: pointer;border: 1px solid #ddd;}
-.scdiv .hd{line-height: 28px;border-bottom: 1px solid #ddd;padding-left: 10px;}
-.scdiv ul li{padding-left: 10px;font-size: 12px;line-height: 24px;}
-.scdiv ul li:hover{background: darkturquoise;}
-</style>
