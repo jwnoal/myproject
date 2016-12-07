@@ -168,6 +168,7 @@ export default {
 		}
 	}
 }
+//判断条件滑动
 function animatetop(){
 	var top=parseInt($('.foot').css('top'));
 	if(top>0){
