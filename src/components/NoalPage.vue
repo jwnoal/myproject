@@ -3,11 +3,11 @@
 <!-----------------------------head---------------------------->
 	<div class="NoalHead clearfloat">
 		<div class="logo">
-			<img src="../assets/logo.png" />
+			<img src="../../static/images/logo.png" />
 		</div>
 		<div class="right">
 			<div class="search">
-				<img src="../assets/sousuo.png" />
+				<img src="../../static/images/sousuo.png" />
 				<input type="text">
 			</div>
 			<ul class="list">
@@ -15,14 +15,14 @@
 				<li>|</li>
 				<li><a>退出</a></li>
 				<li>|</li>
-				<li><a><img class="xiaoxi" src="../assets/xiaoxi.png" />4</a></li>
+				<li><a><img class="xiaoxi" src="../../static/images/xiaoxi.png" />4</a></li>
 				<li>|</li>
-				<li><a @click='toggleshow()'><img class="yifu" src="../assets/yifu.png"/></a></li>
+				<li><a @click='toggleshow()'><img class="yifu" src="../../static/images/yifu.png"/></a></li>
 				<!--<li>|</li>-->
 				<li class="liwidth" :class='{"bgfff":scshow}' @click='scdivshow()'>
 					<a>
-						<img class="sc" v-if='scshow' src="../assets/sc-2.png"/>
-						<img class="sc" v-else src="../assets/sc-1.png"/>
+						<img class="sc" v-if='scshow' src="../../static/images/sc-2.png"/>
+						<img class="sc" v-else src="../../static/images/sc-1.png"/>
 					</a>
 				</li>
 			</ul>
@@ -44,18 +44,45 @@
 <!-----------------------------body---------------------------->
 	 <div id='NoalBody' class="NoalBody clearfloat">
 	 	<div class="body-left">
-	 		
+	 		<div class="hd">首页</div>
+	 		<ul v-for="list in lists">
+	 			<li>{{list.text}}</li>
+	 		</ul>
 	 	</div>
-	 	<div id="bodyright" class="body-right">
+	 	<div id="bodyright" >
+	 		<div class="body-right">
+	 			<ul>
+	 				<li v-for="menu in menus" @click="liclick(menu)"><img v-bind:src="menu.src"><p>{{menu.text}}</p></li>
+	 			</ul>
+	 		</div>
 	 		
 	 	</div>
 	 </div>
 <!-----------------------------foot---------------------------->
+	<div class="foot">
+		<div class="hd">
+			<span class="window"><img src="../../static/images/window.png"></span>
+			<ul >
+				<li v-for="menu in menus" :class="{'blue':menu.bg}" v-if='menu.show' @click="navliclick(menu)">{{menu.text}}<img id="close" @click="closeclick(menu)" src="../../static/images/close.png"></li>
+			</ul>
+			<img class="menu" src="../../static/images/lists.png" />
+		</div>
+	</div>
 	 
 </div>
 </template>
 
 <script>
+var winheight=$(window).height();
+var winwidth=$(window).width();
+var top=parseInt($('.foot').css('top'));
+$(function(){
+	$('.foot').height(winheight).css('top',winheight-35);
+	$('.foot .hd ul').width(winwidth-100);
+	$('.window').click(function(){
+		animatetop();
+	})
+});
 
 export default {
   name: 'NoalPage',
@@ -63,17 +90,38 @@ export default {
     return {
     	themeshow:false,
     	scshow:false,
-      themes:[
+        themes:[
 				{text:'传统版'},
 				{text:'经典版'},
 				{text:'个性版'}
-			],
-			scs:[
+		],
+		scs:[
 				{text:'我的事务工作台'},
 				{text:'通讯录'},
 				{text:'我的操作日志'},
 				{text:'规章制度'}
-			]
+		],
+		lists:[
+				{text:'基础平台'},
+				{text:'EOC'},
+				{text:'数据收集'},
+				{text:'我的中心'},
+				{text:'报表发布'},
+				{text:'WES'},
+				{text:'报表中心'}
+		],
+		menus:[
+				{src:'../../static/images/menus/report.png',text:'report',show:false,bg:false},
+				{src:'../../static/images/menus/report1.png',text:'report1',show:false,bg:false},
+				{src:'../../static/images/menus/report2.png',text:'report2',show:false,bg:false},
+				{src:'../../static/images/menus/report3.png',text:'report3',show:false,bg:false},
+				{src:'../../static/images/menus/report4.png',text:'report4',show:false,bg:false},
+				{src:'../../static/images/menus/report5.png',text:'report5',show:false,bg:false},
+				{src:'../../static/images/menus/report6.png',text:'report6',show:false,bg:false},
+				{src:'../../static/images/menus/report7.png',text:'report7',show:false,bg:false},
+				{src:'../../static/images/menus/report8.png',text:'report8',show:false,bg:false},
+				{src:'../../static/images/menus/report9.png',text:'report9',show:false,bg:false}
+		]
     }
  },
 	methods:{
@@ -82,10 +130,71 @@ export default {
 		},
 		scdivshow:function(){
 			this.scshow=!this.scshow;
+		},
+		liclick:function(menu){
+			menu.show=true;
+			for(var i=0;i<this.menus.length;i++){
+				this.menus[i].bg=false;
+			}
+			menu.bg=true;
+			animatetop();
+		},
+		closeclick:function(menu){
+			var num=0;
+			if(menu.bg==true){
+				menu.show=false;
+				for(var i=0;i<this.menus.length;i++){
+					if(this.menus[i].show==true){
+						num++;
+					}
+				}
+				if(num>0){
+					this.menus[num-1].bg=true;
+				}
+				if(num==0){
+					animatetop3();
+				}
+			}else{
+				menu.show=false;
+			}
+			stopBubble();
+		},
+		navliclick:function(menu){
+			for(var i=0;i<this.menus.length;i++){
+				this.menus[i].bg=false;
+			}
+			menu.bg=true;
+			animatetop2();
 		}
 	}
 }
-
+function animatetop(){
+	var top=parseInt($('.foot').css('top'));
+	if(top>0){
+		$('.foot').animate({top:'0px'},200);
+	}else{
+		$('.foot').animate({top:winheight-35},200);
+	}
+}
+//向上滑动
+function animatetop2(){
+	$('.foot').animate({top:'0px'},200);
+}
+//往下滑动
+function animatetop3(){
+	$('.foot').animate({top:winheight-35},200);
+}
+//阻止冒泡
+function stopBubble(e) {
+    // 如果提供了事件对象，则这是一个非IE浏览器
+    if ( e && e.stopPropagation ) {
+        // 因此它支持W3C的stopPropagation()方法 
+        e.stopPropagation();
+    } else { 
+        // 否则，我们需要使用IE的方式来取消事件冒泡
+        window.event.cancelBubble = true;
+    }
+}
 
 </script>
 
