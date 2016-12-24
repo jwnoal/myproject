@@ -49,7 +49,7 @@
 	 			<li>{{list.text}}</li>
 	 		</ul>
 	 	</div>
-	 	<div id="bodyright" >
+	 	<div id="bodyright">
 	 		<div class="body-right">
 	 			<ul>
 	 				<li v-for="menu in menus" @click="liclick(menu)"><img v-bind:src="menu.src"><p>{{menu.text}}</p></li>
@@ -62,10 +62,15 @@
 	<div class="foot">
 		<div class="hd">
 			<span class="window"><img src="../../static/images/window.png"></span>
-			<ul >
-				<li v-for="menu in menus" :class="{'blue':menu.bg}" v-if='menu.show' @click="navliclick(menu)">{{menu.text}}<img id="close" @click="closeclick(menu)" src="../../static/images/close.png"></li>
+			<ul class="navul">
+				<li v-for="(navlist,index) in navlists" :class="{'blue':navlist.bg}" @click="navliclick(navlist)">{{navlist.text}}<img @click="closeclick(index)" src="../../static/images/close.png"></li>
 			</ul>
 			<img class="menu" src="../../static/images/lists.png" />
+			<ul class="menuul">
+				<li @click="closeall()">点击关闭全部</li>
+				<li @click="closeother()">点击关闭其他</li>
+				<li v-for="(menulist,index) in menulists">{{menulist.text}}<img @click="menucloseclick(index)" src="../../static/images/close.png"></li>
+			</ul>
 		</div>
 	</div>
 	 
@@ -77,10 +82,11 @@ var winheight=$(window).height();
 var winwidth=$(window).width();
 var top=parseInt($('.foot').css('top'));
 $(function(){
-	$('.foot').height(winheight).css('top',winheight-35);
-	$('.foot .hd ul').width(winwidth-100);
+	$('.foot').height(winheight).css('bottom',-(winheight-35));
+	$('#NoalBody').height(winheight-85);
+	$('.foot .hd .navul').width(winwidth-100);
 	$('.window').click(function(){
-		animatetop();
+		animateif();
 	})
 });
 
@@ -111,16 +117,29 @@ export default {
 				{text:'报表中心'}
 		],
 		menus:[
-				{src:'../../static/images/menus/report.png',text:'report',show:false,bg:false},
-				{src:'../../static/images/menus/report1.png',text:'report1',show:false,bg:false},
-				{src:'../../static/images/menus/report2.png',text:'report2',show:false,bg:false},
-				{src:'../../static/images/menus/report3.png',text:'report3',show:false,bg:false},
-				{src:'../../static/images/menus/report4.png',text:'report4',show:false,bg:false},
-				{src:'../../static/images/menus/report5.png',text:'report5',show:false,bg:false},
-				{src:'../../static/images/menus/report6.png',text:'report6',show:false,bg:false},
-				{src:'../../static/images/menus/report7.png',text:'report7',show:false,bg:false},
-				{src:'../../static/images/menus/report8.png',text:'report8',show:false,bg:false},
-				{src:'../../static/images/menus/report9.png',text:'report9',show:false,bg:false}
+				{src:'../../static/images/menus/report.png',text:'report',bg:false},
+				{src:'../../static/images/menus/report1.png',text:'report1',bg:false},
+				{src:'../../static/images/menus/report2.png',text:'report2',bg:false},
+				{src:'../../static/images/menus/report3.png',text:'report3',bg:false},
+				{src:'../../static/images/menus/report4.png',text:'report4',bg:false},
+				{src:'../../static/images/menus/report5.png',text:'report5',bg:false},
+				{src:'../../static/images/menus/report6.png',text:'report6',bg:false},
+				{src:'../../static/images/menus/report7.png',text:'report7',bg:false},
+				{src:'../../static/images/menus/report8.png',text:'report8',bg:false},
+				{src:'../../static/images/menus/report9.png',text:'report9',bg:false}
+		],
+		navlists:[
+		{text:"were1"},
+		{text:"were2"},
+		{text:"were1"},
+		{text:"were1"},
+		{text:"were1"},
+		{text:"were1"},
+		{text:"were1"}
+			
+		],
+		menulists:[
+		{text:"were"}
 		]
     }
  },
@@ -132,44 +151,81 @@ export default {
 			this.scshow=!this.scshow;
 		},
 		liclick:function(menu){
-			menu.show=true;
-			for(var i=0;i<this.menus.length;i++){
-				this.menus[i].bg=false;
-			}
-			menu.bg=true;
+			var textmenu=menu.text;
 			animatetop();
-		},
-		closeclick:function(menu){
-			var num=0;
-			if(menu.bg==true){
-				menu.show=false;
-				for(var i=0;i<this.menus.length;i++){
-					if(this.menus[i].show==true){
-						num++;
-					}
+//			数组去重
+			var flag=false;
+			for (var i=0;i<this.navlists.length;i++) {
+				this.navlists[i].bg=false;
+				if(textmenu==this.navlists[i].text){
+					flag=true;
+					this.navlists[i].bg=true;
 				}
-				if(num>0){
-					this.menus[num-1].bg=true;
-				}
-				if(num==0){
-					animatetop3();
-				}
-			}else{
-				menu.show=false;
 			}
+			if(!flag){
+				this.navlists.push({text:textmenu,bg:true});
+			}
+			if(this.navlists.length>8){
+				var menutext=this.navlists[0].text;
+				this.navlists.shift();
+				this.menulists.push({text:menutext});
+			}
+			
+		},
+		closeclick:function(index){
+			this.navlists.splice(index,1);
+			var flag = false;
+			for (var i=0;i<this.navlists.length;i++) {
+				if(this.navlists[i].bg){
+					flag =true;
+				}
+			}
+			if(this.navlists.length<8){
+				if(this.menulists.length>0){
+					var navlisttext=this.menulists[0].text;
+					this.menulists.shift();
+					this.navlists.push({text:navlisttext,bg:false});
+				}
+			}
+			if(!flag){
+				if(this.navlists.length-1>=0){
+					this.navlists[this.navlists.length-1].bg=true;
+				}
+			}
+			if(this.navlists.length==0){
+				animatebottom();
+			}
+			
 			stopBubble();
 		},
-		navliclick:function(menu){
-			for(var i=0;i<this.menus.length;i++){
-				this.menus[i].bg=false;
+		navliclick:function(navlist){
+			for(var i=0;i<this.navlists.length;i++){
+				this.navlists[i].bg=false;
 			}
-			menu.bg=true;
-			animatetop2();
+			navlist.bg=true;
+			animatetop();
+		},
+		menucloseclick:function(index){
+			this.menulists.splice(index,1);
+		},
+		closeall:function(){
+			this.navlists.splice(0,this.navlists.length);
+			this.menulists.splice(0,this.menulists.length);
+			animatebottom();
+		},
+		closeother:function(){
+			this.menulists.splice(0,this.menulists.length);
+			for (var i=0; i<this.navlists.length;i++) {
+				if(this.navlists[i].bg){
+					this.navlists[0]=this.navlists[i];
+					this.navlists.splice(1,this.navlists.length-1);
+				}
+			}
 		}
 	}
 }
 //判断条件滑动
-function animatetop(){
+function animateif(){
 	var top=parseInt($('.foot').css('top'));
 	if(top>0){
 		$('.foot').animate({top:'0px'},200);
@@ -178,11 +234,11 @@ function animatetop(){
 	}
 }
 //向上滑动
-function animatetop2(){
+function animatetop(){
 	$('.foot').animate({top:'0px'},200);
 }
 //往下滑动
-function animatetop3(){
+function animatebottom(){
 	$('.foot').animate({top:winheight-35},200);
 }
 //阻止冒泡

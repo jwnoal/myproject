@@ -103,6 +103,7 @@ i {
 
 .NoalHead {
 	width: 100%;
+	min-width: 865px;
 	height: 50px;
 	background: url(../images/headbg.jpg) no-repeat;
 	position: fixed;
@@ -228,7 +229,8 @@ i {
 	height: 100%;
 	background: url(../images/container-bg.jpg) no-repeat;
 	background-size: 100% 100%;
-	padding: 50px 0 30px;
+	padding-top: 50px;
+	/*padding: 50px 0 30px;*/
 }
 
 
@@ -266,16 +268,18 @@ i {
 
 #bodyright {
 	height: 100%;
-	padding-left: 205px;
+	/*padding-left: 205px;*/
 	border: 1px solid #333;
+	overflow: auto;
 }
 
 .body-right {
-	padding: 50px;
+	padding: 50px 0 0 50px;
+	height: 100%;
 }
 
 .body-right ul {
-	width: 950px;
+	
 }
 
 .body-right ul li {
@@ -310,7 +314,8 @@ i {
 .foot .hd {
 	height: 35px;
 	line-height: 35px;
-	background: rgba(41, 90, 146, 1)
+	background: rgba(41, 90, 146, 1);
+	overflow: hidden;
 }
 
 .foot .hd .window {
@@ -329,13 +334,14 @@ i {
 	height: 90%;
 }
 
-.foot .hd ul {
+.foot .hd .navul {
 	display: inline-block;
 	margin-left: -4px;
 	overflow: hidden;
+	height: 100%;
 }
 
-.foot .hd ul li {
+.foot .hd .navul li {
 	width: 12.5%;
 	height: 100%;
 	border-right: 1px solid #4771a3;
@@ -347,14 +353,14 @@ i {
 	position: relative;
 	color: #fff;
 }
-.foot .hd ul li img{
+.foot .hd .navul li img{
     width: 16px;
     position: absolute;
     right: 4px;
     top: 32%;
     display: none;
 }
-.foot .hd ul li:hover img{
+.foot .hd .navul li:hover img{
 	display: block;
 }
 .foot .hd .menu{
@@ -363,4 +369,13 @@ i {
     margin-top: 8px;
     margin-right: 10px;
 }
-	
+.foot .hd .menuul{width: 140px;position: absolute;top: 35px;right: 0;text-align: center;border: 1px solid #ddd;cursor: pointer;}
+.foot .hd .menuul li{border-bottom:1px solid #4771a3;}	
+.foot .hd .menuul li:last-child{border-bottom: 0;}
+.foot .hd .menuul li:hover{background: #00CED1;}
+.foot .hd .menuul li img{
+	width: 16px;
+    position: absolute;
+    margin-top: 10px;
+    right: 8px;
+}
