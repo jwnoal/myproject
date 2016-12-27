@@ -128,19 +128,8 @@ export default {
 				{src:'../../static/images/menus/report8.png',text:'report8',bg:false},
 				{src:'../../static/images/menus/report9.png',text:'report9',bg:false}
 		],
-		navlists:[
-		{text:"were1"},
-		{text:"were2"},
-		{text:"were1"},
-		{text:"were1"},
-		{text:"were1"},
-		{text:"were1"},
-		{text:"were1"}
-			
-		],
-		menulists:[
-		{text:"were"}
-		]
+		navlists:[],
+		menulists:[]
     }
  },
 	methods:{
